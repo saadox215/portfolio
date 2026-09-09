@@ -20,7 +20,7 @@ export function Office(props) {
     map: texture,
     transparent: true,
     opacity: 1,
-    color: new THREE.Color(0x00ffff),
+    color: new THREE.Color(0xffffff),
   });
 
 
@@ -131,7 +131,7 @@ export function Office(props) {
       }}
       name="WawaRug"
       geometry={nodes.WawaRug.geometry}
-      material={new THREE.MeshStandardMaterial({ color: new THREE.Color(0x00ff00) })}
+      material={new THREE.MeshStandardMaterial({ color: new THREE.Color(0xd7ff62), roughness: 0.72, metalness: 0.04 })}
       position={[-0.28, 0.01, 0.76]}
       />
       <motion.group

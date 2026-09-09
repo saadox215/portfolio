@@ -21,7 +21,8 @@ export const Experience = (props) => {
 
   const isMobile = window.innerWidth < 768;
   const responsiveRatio = viewport.width / 12;
-  const officeScaleRatio = Math.max(0.5, Math.min(0.9 * responsiveRatio, 0.9));
+  // Keep the room on the right so the resume-led hero remains readable beside it.
+  const officeScaleRatio = Math.max(0.42, Math.min(0.62 * responsiveRatio, 0.62));
 
   const [section, setSection] = useState(0);
 
@@ -133,10 +134,12 @@ export const Experience = (props) => {
       >
         <Avatar animation={characterAnimation} wireframe={section === 1} />
       </motion.group>
-      <ambientLight intensity={1} />
+      <ambientLight intensity={0.82} />
+      <directionalLight position={[4, 5, 4]} intensity={1.1} color="#d7ffea" />
+      <pointLight position={[2, 2, 2]} intensity={1.4} distance={8} color="#74e3d2" />
       <motion.group
         position={[
-          isMobile ? 0 : 1.5 * officeScaleRatio,
+          isMobile ? 0 : 3.45 * officeScaleRatio,
           isMobile ? -viewport.height / 6 : 2,
           3,
         ]}
@@ -184,7 +187,7 @@ export const Experience = (props) => {
               transparent
               distort={0.4}
               speed={4}
-              color={"red"}
+              color="#74e3d2"
             />
           </mesh>
         </Float>
@@ -196,7 +199,7 @@ export const Experience = (props) => {
               transparent
               distort={1}
               speed={5}
-              color="yellow"
+              color="#d7ff62"
             />
           </mesh>
         </Float>
@@ -208,7 +211,7 @@ export const Experience = (props) => {
               transparent
               factor={1}
               speed={5}
-              color={"blue"}
+              color="#7568e8"
             />
           </mesh>
         </Float>

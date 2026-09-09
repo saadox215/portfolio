@@ -28,14 +28,14 @@ export function Avatar(props) {
 
   // Nouveaux matériaux
   const newOutfitTopMaterial = new THREE.MeshStandardMaterial({
-    color: 0xff0000, // Rouge
-    roughness: 0.5,
-    metalness: 0.1,
+    color: 0x74e3d2,
+    roughness: 0.62,
+    metalness: 0.08,
   });
 
   const newHairMaterial = new THREE.MeshStandardMaterial({
-    color: 0x00ff00, // Vert
-    roughness: 0.8,
+    color: 0xd7ff62,
+    roughness: 0.72,
   });
 
   useFrame((state) => {
