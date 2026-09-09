@@ -1,482 +1,64 @@
 import { ValidationError, useForm } from "@formspree/react";
-import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { useAtom } from "jotai";
 import { currentProjectAtom, projects } from "./Projects";
-import TechCircle3D from "./Tech";
-import { BallCanvas } from './canvas';
-import { programming, framework, back, softwares } from '../constants';
 
-const Section = (props) => {
-  const { children, mobileTop } = props;
+const Section = ({ children, className = "" }) => (
+  <motion.section
+    className={`portfolio-section ${className}`}
+    initial={{ opacity: 0, y: 36 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    viewport={{ once: true, amount: 0.2 }}
+    transition={{ duration: 0.8 }}
+  >
+    {children}
+  </motion.section>
+);
 
-  return (
-    <motion.section
-      className={`
-  h-screen w-screen p-8 max-w-screen-2xl mx-auto
-  flex flex-col items-start
-  ${mobileTop ? "justify-start md:justify-center" : "justify-center"}
-  `}
-      initial={{
-        opacity: 0,
-        y: 50,
-      }}
-      whileInView={{
-        opacity: 1,
-        y: 0,
-        transition: {
-          duration: 1,
-          delay: 0.6,
-        },
-      }}
-    >
-      {children}
-    </motion.section>
-  );
-};
+const Pill = ({ children }) => <span className="pill">{children}</span>;
 
-export const Interface = (props) => {
-  const { setSection } = props;
-  return (
-    <div className="flex flex-col items-center w-screen">
-      <AboutSection setSection={setSection} />
-      <div className="mb-8 md:mb-16"></div>
-      <SkillsSection />
-      <ProjectsSection />
-      <ContactSection />
-    </div>
-  );
-};
-
-const AboutSection = (props) => {
-  const { setSection } = props;
-  return (
-    <Section mobileTop>
-      <h1 className="text-4xl md:text-6xl font-extrabold leading-snug mt-8 md:mt-0 text-white">
-        Hello, I'm
-        <br />
-        <span className="px-1 italic text-yellow-300">Saad AFIFI</span>
-      </h1>
-      <motion.p
-        className="text-lg text-gray-200 mt-4"
-        initial={{
-          opacity: 0,
-          y: 25,
-        }}
-        whileInView={{
-          opacity: 1,
-          y: 0,
-        }}
-        transition={{
-          duration: 1,
-          delay: 1.5,
-        }}
-      >
-        I am a Software and Data Engineering student,
-        <br />
-        passionate about building innovative applications.
-      </motion.p>
-      <div className="flex gap-6 mt-4 md:mt-16">
-        <motion.button
-          onClick={() => setSection(3)}
-          className="bg-yellow-500 text-blue-900 py-4 px-8 
-          rounded-lg font-bold text-lg transition-colors duration-300 hover:bg-yellow-400"
-          initial={{
-            opacity: 0,
-            y: 25,
-          }}
-          whileInView={{
-            opacity: 1,
-            y: 0,
-          }}
-          transition={{
-            duration: 1,
-            delay: 2,
-          }}
-        >
-          Contact me
-        </motion.button>
-        <motion.a
-          href="/projects/AFIFI_CV.pdf"
-          download
-          className="border-2 border-white text-white py-4 px-8 
-          rounded-lg font-bold text-lg transition-colors duration-300 hover:bg-white hover:text-blue-800"
-          initial={{
-            opacity: 0,
-            y: 25,
-          }}
-          whileInView={{
-            opacity: 1,
-            y: 0,
-          }}
-          transition={{
-            duration: 1,
-            delay: 2.2,
-          }}
-        >
-          Download Resume
-        </motion.a>
-      </div>
-    </Section>
-  );
-};
-
-const skills = [
-  {
-    title: "Python / Data Science",
-    level: 90,
-  },
-  {
-    title: "Java / Spring Boot",
-    level: 85,
-  },
-  {
-    title: "JavaScript / React",
-    level: 80,
-  },
-  {
-    title: "SQL / Database Management",
-    level: 75,
-  },
-  {
-    title: "Machine Learning",
-    level: 70,
-  },
-];
-
-const languages = [
-  {
-    title: "🇲🇦 Arabic",
-    level: 100,
-  },
-  {
-    title: "🇬🇧 English",
-    level: 85,
-  },
-  {
-    title: "🇫🇷 French",
-    level: 75,
-  },
-];
-
-const SkillsSection = () => {
-  const [isMobile, setIsMobile] = useState(false);
-
-  useEffect(() => {
-    const mediaQuery = window.matchMedia('(max-width: 600px)');
-
-    const handleMediaQueryChange = (event) => {
-      setIsMobile(event.matches);
-    };
-
-    setIsMobile(mediaQuery.matches);
-    mediaQuery.addEventListener('change', handleMediaQueryChange);
-
-    return () => {
-      mediaQuery.removeEventListener('change', handleMediaQueryChange);
-    };
-  }, []);
-
-  // Technologies groupées par catégorie
-  const technologiesGroups = [
-    {
-      title: 'Programming Languages',
-      items: programming,
-    },
-    {
-      title: 'Framework',
-      items: framework,
-    },
-    {
-      title: 'Backend',
-      items: back,
-    },
-    {
-      title: 'Softwares',
-      items: softwares,
-    },
-  ];
-
-  return (
-    <Section>
-      <motion.div className="w-full" whileInView={"visible"}>
-        <h2 className="text-3xl md:text-5xl font-bold text-yellow-300 mb-8 text-center">Skills</h2>
-        
-        {/* Three column layout for desktop with empty center */}
-        <div className="flex flex-col md:flex-row w-full">
-          {/* Left column - Skills and Languages */}
-          <div className="w-full md:w-1/3 md:pr-6">
-            {/* Skills bars */}
-            <div className="mb-12">
-              <h3 className="text-xl md:text-2xl font-bold text-white mb-4">Technical Skills</h3>
-              <div className="space-y-4">
-                {skills.map((skill, index) => (
-                  <div className="w-full" key={index}>
-                    <motion.div
-                      className="flex justify-between items-center mb-2"
-                      initial={{
-                        opacity: 0,
-                      }}
-                      variants={{
-                        visible: {
-                          opacity: 1,
-                          transition: {
-                            duration: 1,
-                            delay: 0.5 + index * 0.1,
-                          },
-                        },
-                      }}
-                    >
-                      <h3 className="text-lg font-bold text-white">{skill.title}</h3>
-                      <span className="text-yellow-300 font-mono text-sm">{skill.level}%</span>
-                    </motion.div>
-                    <div className="h-2 w-full bg-blue-900 rounded-full mt-2 overflow-hidden shadow-inner">
-                      <motion.div
-                        className="h-full bg-gradient-to-r from-cyan-400 to-yellow-400 rounded-full"
-                        style={{ width: `${skill.level}%` }}
-                        initial={{
-                          scaleX: 0,
-                          originX: 0,
-                        }}
-                        variants={{
-                          visible: {
-                            scaleX: 1,
-                            transition: {
-                              duration: 1,
-                              delay: 0.5 + index * 0.1,
-                            },
-                          },
-                        }}
-                      />
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-            
-            {/* Languages section */}
-            <div>
-              <h3 className="text-xl md:text-2xl font-bold text-white mb-4">
-                Languages
-              </h3>
-              <div className="space-y-4">
-                {languages.map((lng, index) => (
-                  <div className="w-full" key={index}>
-                    <motion.div
-                      className="flex justify-between items-center mb-2"
-                      initial={{
-                        opacity: 0,
-                      }}
-                      variants={{
-                        visible: {
-                          opacity: 1,
-                          transition: {
-                            duration: 1,
-                            delay: 1 + index * 0.1,
-                          },
-                        },
-                      }}
-                    >
-                      <h3 className="text-lg font-bold text-white">{lng.title}</h3>
-                      <span className="text-yellow-300 font-mono text-sm">{lng.level}%</span>
-                    </motion.div>
-                    <div className="h-2 w-full bg-blue-900 rounded-full mt-2 overflow-hidden shadow-inner">
-                      <motion.div
-                        className="h-full bg-gradient-to-r from-cyan-400 to-yellow-400 rounded-full"
-                        style={{ width: `${lng.level}%` }}
-                        initial={{
-                          scaleX: 0,
-                          originX: 0,
-                        }}
-                        variants={{
-                          visible: {
-                            scaleX: 1,
-                            transition: {
-                              duration: 1,
-                              delay: 1 + index * 0.1,
-                            },
-                          },
-                        }}
-                      />
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-          
-          {/* Empty center column */}
-          <div className="hidden md:block md:w-1/3">
-            {/* This column is intentionally left empty */}
-          </div>
-          
-          {/* Right column - Technology balls */}
-          <div className="w-full md:w-1/3 md:pl-6">
-            {technologiesGroups.map((techGroup, groupIndex) => (
-              <motion.div 
-                key={techGroup.title}
-                initial={{ opacity: 0 }}
-                whileInView={{ 
-                  opacity: 1,
-                  transition: { 
-                    duration: 0.8,
-                    delay: 0.2 * groupIndex 
-                  }
-                }}
-                className="mb-8"
-              >
-                <h3 className="text-xl md:text-2xl font-bold text-yellow-300 mb-4">{techGroup.title}</h3>
-                <div className="flex flex-wrap gap-2 md:gap-4">
-                  {techGroup.items.map((tech) => (
-                    <motion.div 
-                      key={tech.name} 
-                      className="w-16 h-16 md:w-24 md:h-24"
-                      initial={{ scale: 0.8, opacity: 0 }}
-                      whileInView={{ 
-                        scale: 1, 
-                        opacity: 1,
-                        transition: { duration: 0.5, delay: 0.1 }
-                      }}
-                      whileHover={{ scale: 1.1 }}
-                    >
-                      <div className="w-full h-5/6">
-                        <BallCanvas icon={tech.icon} />
-                      </div>
-                      <p className="text-center text-white text-xs mt-1">{tech.name}</p>
-                    </motion.div>
-                  ))}
-                </div>
-              </motion.div>
-            ))}
+export const Interface = ({ setSection }) => (
+  <main className="interface-shell">
+    <Section className="hero-section">
+      <div className="eyebrow"><span className="status-dot" /> FULL-STACK SOFTWARE ENGINEER <span className="eyebrow-line" /> CASABLANCA, MA</div>
+      <div className="hero-grid">
+        <div>
+          <p className="hero-kicker">BUILDING SYSTEMS THAT</p>
+          <h1>Make complexity<br /><em>feel simple.</em></h1>
+          <p className="hero-copy">I&apos;m Saad AFIFI — an engineer shaping reliable enterprise software with Java, Spring Boot, Angular, and data-driven systems.</p>
+          <div className="hero-actions">
+            <button className="button button-primary" onClick={() => setSection(3)}>Start a conversation <span>↗</span></button>
+            <a className="button button-ghost" href="/projects/AFIFI_CV.pdf" download>Download resume <span>↓</span></a>
           </div>
         </div>
-        
-        {/* Scroll button */}
-        <div className="hidden md:block absolute bottom-10 right-10">
-          <a href="#">
-            <div className="w-[50px] h-[50px] rounded-3xl border-4 border-yellow-300 flex justify-center items-start p-2">
-              <motion.div
-                animate={{
-                  y: isMobile ? [0, 3, 0] : [0, 15, 0],
-                }}
-                transition={{
-                  duration: 1,
-                  repeat: Infinity,
-                }}
-                className="w-3 h-3 rounded-full bg-yellow-300 mb-1"
-              />
-            </div>
-          </a>
-        </div>
-      </motion.div>
-    </Section>
-  );
-};
-
-
-const ProjectsSection = () => {
-  const [currentProject, setCurrentProject] = useAtom(currentProjectAtom);
-
-  const nextProject = () => {
-    setCurrentProject((currentProject + 1) % projects.length);
-  };
-
-  const previousProject = () => {
-    setCurrentProject((currentProject - 1 + projects.length) % projects.length);
-  };
-
-  return (
-    <Section>
-      <div className="flex w-full h-full gap-8 items-center justify-center">
-        <button
-          className="text-yellow-300 hover:text-yellow-400 transition-colors font-medium"
-          onClick={previousProject}
-        >
-          ← Previous
-        </button>
-        <h2 className="text-3xl md:text-5xl font-bold text-yellow-300">Projects</h2>
-        <button
-          className="text-yellow-300 hover:text-yellow-400 transition-colors font-medium"
-          onClick={nextProject}
-        >
-          Next →  
-        </button>
+        <div className="hero-index"><span>SCROLL TO EXPLORE</span><strong>01</strong><div className="index-line" /><span>04</span></div>
       </div>
+      <div className="hero-meta"><div><span>Currently</span><strong>Software Engineer · Oracle</strong></div><div><span>Focus</span><strong>Enterprise & distributed systems</strong></div><div><span>Certified</span><strong>Oracle Java SE 17</strong></div></div>
     </Section>
-  );
-};
 
-const ContactSection = () => {
-  const [state, handleSubmit] = useForm("mrbpzaey");
-  return (
-    <Section>
-      <h2 className="text-3xl md:text-5xl font-bold text-yellow-300">Contact me</h2>
-      <div className="mt-8 p-8 rounded-md bg-blue-900 bg-opacity-70 shadow-lg w-96 max-w-full border border-blue-700">
-        {state.succeeded ? (
-          <p className="text-white text-center">Thanks for your message!</p>
-        ) : (
-          <form onSubmit={handleSubmit}>
-            <label htmlFor="name" className="font-medium text-white block mb-1">
-              Name
-            </label>
-            <input
-              type="text"
-              name="name"
-              id="name"
-              className="block w-full rounded-md border-0 bg-blue-800 text-white shadow-sm ring-1 ring-inset ring-blue-600 placeholder:text-blue-300 focus:ring-2 focus:ring-inset focus:ring-yellow-500 p-3"
-            />
-            <label
-              htmlFor="email"
-              className="font-medium text-white block mb-1 mt-8"
-            >
-              Email
-            </label>
-            <input
-              type="email"
-              name="email"
-              id="email"
-              className="block w-full rounded-md border-0 bg-blue-800 text-white shadow-sm ring-1 ring-inset ring-blue-600 placeholder:text-blue-300 focus:ring-2 focus:ring-inset focus:ring-yellow-500 p-3"
-            />
-            <ValidationError
-              className="mt-1 text-red-300"
-              prefix="Email"
-              field="email"
-              errors={state.errors}
-            />
-            <label
-              htmlFor="message"
-              className="font-medium text-white block mb-1 mt-8"
-            >
-              Message
-            </label>
-            <textarea
-              name="message"
-              id="message"
-              className="h-32 block w-full rounded-md border-0 bg-blue-800 text-white shadow-sm ring-1 ring-inset ring-blue-600 placeholder:text-blue-300 focus:ring-2 focus:ring-inset focus:ring-yellow-500 p-3"
-            />
-            <ValidationError
-              className="mt-1 text-red-300"
-              errors={state.errors}
-            />
-            <div className="flex gap-4 mt-8">
-              <button
-                disabled={state.submitting}
-                className="bg-yellow-500 hover:bg-yellow-400 text-blue-900 py-3 px-6 rounded-lg font-bold text-lg transition-colors duration-300"
-                type="submit"
-              >
-                Submit
-              </button>
-              <a
-                href="/projects/AFIFI_CV.pdf"
-                download
-                className="border-2 border-white hover:bg-white hover:text-blue-800 text-white py-3 px-6 rounded-lg font-bold transition-colors duration-300"
-              >
-                Resume
-              </a>
-            </div>
-          </form>
-        )}
-      </div>
+    <Section className="about-section">
+      <div className="section-heading"><span className="section-number">01 / 04</span><div><p className="eyebrow">THE ENGINEER BEHIND THE CODE</p><h2>From idea to<br /><em>production.</em></h2></div></div>
+      <div className="about-grid"><p className="lead">I build the connective tissue between ambitious product ideas and dependable software. My work spans business-critical CRM features at Oracle, real-time data pipelines, and interfaces that make complex operations clear.</p><div className="facts"><div><strong>29%</strong><span>Oracle optimizer cost reduction</span></div><div><strong>92%</strong><span>Test accuracy on ML platform</span></div><div><strong>3+</strong><span>Years building software</span></div></div></div>
+      <div className="timeline"><div className="timeline-item active"><span>08/2026 — PRESENT</span><div><h3>Oracle <small>Junior Member of Technical Staff</small></h3><p>Building business-critical CRM features for the NetSuite platform with enterprise Java practices.</p></div></div><div className="timeline-item"><span>01/2026 — 07/2026</span><div><h3>Oracle <small>Software Engineering Intern · PFE</small></h3><p>Optimized financial algorithms and PL/SQL execution plans while expanding JUnit and Mockito regression coverage.</p></div></div><div className="timeline-item"><span>07/2025 — 08/2025</span><div><h3>Colas Digital Solutions <small>Software Developer Intern</small></h3><p>Shipped payroll services, Angular dashboards, ELK observability, and Kafka/Spark Streaming pipelines.</p></div></div></div>
     </Section>
-  );
-};
+
+    <Section className="skills-section">
+      <div className="section-heading"><span className="section-number">02 / 04</span><div><p className="eyebrow">THE TOOLKIT</p><h2>Fluent across<br /><em>the stack.</em></h2></div></div>
+      <div className="skills-layout"><div className="skill-cloud"><Pill>Java</Pill><Pill>Spring Boot</Pill><Pill>Angular</Pill><Pill>React</Pill><Pill>SQL / PL/SQL</Pill><Pill>Apache Kafka</Pill><Pill>Apache Spark</Pill><Pill>Scala</Pill><Pill>Docker</Pill><Pill>Kubernetes</Pill><Pill>JUnit / Mockito</Pill><Pill>ELK Stack</Pill></div><div className="skill-columns"><div><span>BACKEND</span><p>REST APIs<br />JPA / Hibernate<br />JWT · Node.js</p></div><div><span>DATA & SYSTEMS</span><p>Oracle · PostgreSQL<br />MongoDB · MySQL<br />Event-driven architecture</p></div><div><span>DELIVERY</span><p>GitLab CI/CD<br />Azure · Linux<br />Agile / Scrum</p></div></div></div>
+    </Section>
+
+    <Section className="projects-section">
+      <div className="section-heading"><span className="section-number">03 / 04</span><div><p className="eyebrow">SELECTED WORK</p><h2>Ideas made<br /><em>tangible.</em></h2></div></div><ProjectShowcase />
+    </Section>
+
+    <Section className="contact-section">
+      <div className="section-heading"><span className="section-number">04 / 04</span><div><p className="eyebrow">LET&apos;S CONNECT</p><h2>Have a system<br /><em>to build?</em></h2></div></div><ContactForm /><footer><span>SAAD AFIFI / 2026</span><span>JAVA · DATA · PRODUCT</span><a href="mailto:afifisaad8@gmail.com">afifisaad8@gmail.com ↗</a></footer>
+    </Section>
+  </main>
+);
+
+const ProjectShowcase = () => { const [current, setCurrent] = useAtom(currentProjectAtom); const project = projects[current] || projects[0]; return <div className="project-showcase"><div className="project-number">0{current + 1}</div><div className="project-copy"><p className="eyebrow">{project.category || "FULL-STACK PLATFORM"}</p><h3>{project.title}</h3><p>{project.description}</p><div className="project-tags"><Pill>Spring Boot</Pill><Pill>{current === 0 ? "Random Forest" : current === 1 ? "Kafka" : "Angular"}</Pill></div></div><div className="project-controls"><button onClick={() => setCurrent((current - 1 + projects.length) % projects.length)} aria-label="Previous project">←</button><span>{String(current + 1).padStart(2, "0")} / {String(projects.length).padStart(2, "0")}</span><button onClick={() => setCurrent((current + 1) % projects.length)} aria-label="Next project">→</button></div></div>; };
+
+const ContactForm = () => { const [state, handleSubmit] = useForm("mrbpzaey"); return <div className="contact-layout"><div className="contact-details"><p>Open to thoughtful teams, challenging systems, and conversations about building what&apos;s next.</p><a href="mailto:afifisaad8@gmail.com">afifisaad8@gmail.com</a><a href="tel:+212621740209">+212 621 740 209</a><div className="socials"><a href="https://github.com/saadox215" target="_blank" rel="noreferrer">GitHub ↗</a><a href="https://www.linkedin.com" target="_blank" rel="noreferrer">LinkedIn ↗</a></div></div>{state.succeeded ? <p className="success-message">Message received. I&apos;ll be in touch shortly.</p> : <form className="contact-form" onSubmit={handleSubmit}><label htmlFor="name">YOUR NAME<input id="name" name="name" required /></label><label htmlFor="email">EMAIL ADDRESS<input id="email" name="email" type="email" required /><ValidationError prefix="Email" field="email" errors={state.errors} /></label><label htmlFor="message">WHAT&apos;S ON YOUR MIND?<textarea id="message" name="message" rows="3" required /></label><button className="button button-primary" disabled={state.submitting}>Send message <span>↗</span></button><ValidationError errors={state.errors} /></form>}</div>; };
+
+export default Interface;
