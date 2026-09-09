@@ -53,8 +53,8 @@ export const Experience = (props) => {
   useFrame((state) => {
     let curSection = Math.floor(data.scroll.current * data.pages);
 
-    if (curSection > 3) {
-      curSection = 3;
+    if (curSection > 4) {
+      curSection = 4;
     }
 
     if (curSection !== section) {
@@ -99,7 +99,7 @@ export const Experience = (props) => {
           },
           1: {
             y: -viewport.height + 0.5,
-            x: isMobile ? 0.3 : 0,
+            x: isMobile ? 0.3 : 2.6,
             z: 7,
             rotateX: 0,
             rotateY: isMobile ? -Math.PI / 2 : 0,
@@ -126,9 +126,20 @@ export const Experience = (props) => {
             rotateX: 0,
             rotateY: -Math.PI / 4,
             rotateZ: 0,
-            scaleX: 1,
-            scaleY: 1,
-            scaleZ: 1,
+            scaleX: 0.78,
+            scaleY: 0.78,
+            scaleZ: 0.78,
+          },
+          4: {
+            y: -viewport.height * 4,
+            x: 0,
+            z: 8,
+            rotateX: 0,
+            rotateY: 0,
+            rotateZ: 0,
+            scaleX: 0,
+            scaleY: 0,
+            scaleZ: 0,
           },
         }}
       >
@@ -216,7 +227,7 @@ export const Experience = (props) => {
           </mesh>
         </Float>
       </motion.group>
-      <Projects />
+      <Projects section={section} />
     </>
   );
 };

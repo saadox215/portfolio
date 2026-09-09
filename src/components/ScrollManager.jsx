@@ -32,7 +32,7 @@ export const ScrollManager = (props) => {
       return;
     }
 
-    const curSection = Math.floor(data.scroll.current * data.pages);
+    const curSection = Math.min(4, Math.floor(data.scroll.current * data.pages));
     if (data.scroll.current > lastScroll.current && curSection === 0) {
       onSectionChange(1);
     }

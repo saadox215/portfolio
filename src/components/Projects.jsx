@@ -96,12 +96,16 @@ const Project = (props) => {
 
 export const currentProjectAtom = atom(Math.floor(projects.length / 2));
 
-export const Projects = () => {
+export const Projects = ({ section }) => {
   const { viewport } = useThree();
   const [currentProject] = useAtom(currentProjectAtom);
 
   return (
-    <group position-y={-viewport.height * 2 + 1}>
+    <motion.group
+      position-y={-viewport.height * 3 + 0.5}
+      animate={{ scale: section === 3 ? 1 : 0, opacity: section === 3 ? 1 : 0 }}
+      transition={{ duration: 0.45 }}
+    >
       {projects.map((project, index) => (
         <motion.group
           key={"project_" + index}
@@ -117,6 +121,6 @@ export const Projects = () => {
           <Project project={project} highlighted={index === currentProject} />
         </motion.group>
       ))}
-    </group>
+    </motion.group>
   );
 };

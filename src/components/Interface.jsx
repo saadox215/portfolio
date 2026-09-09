@@ -31,28 +31,28 @@ export const Interface = ({ setSection }) => (
             <a className="button button-ghost" href="/projects/AFIFI_CV.pdf" download>Download resume <span>↓</span></a>
           </div>
         </div>
-        <div className="hero-index"><span>SCROLL TO EXPLORE</span><strong>01</strong><div className="index-line" /><span>04</span></div>
+        <div className="hero-index"><span>SCROLL TO EXPLORE</span><strong>01</strong><div className="index-line" /><span>05</span></div>
       </div>
       <div className="hero-meta"><div><span>Currently</span><strong>Software Engineer · Oracle</strong></div><div><span>Focus</span><strong>Enterprise & distributed systems</strong></div><div><span>Certified</span><strong>Oracle Java SE 17</strong></div></div>
     </Section>
 
     <Section className="about-section">
-      <div className="section-heading"><span className="section-number">01 / 04</span><div><p className="eyebrow">THE ENGINEER BEHIND THE CODE</p><h2>From idea to<br /><em>production.</em></h2></div></div>
+      <div className="section-heading"><span className="section-number">01 / 05</span><div><p className="eyebrow">THE ENGINEER BEHIND THE CODE</p><h2>From idea to<br /><em>production.</em></h2></div></div>
       <div className="about-grid"><p className="lead">I build the connective tissue between ambitious product ideas and dependable software. My work spans business-critical CRM features at Oracle, real-time data pipelines, and interfaces that make complex operations clear.</p><div className="facts"><div><strong>29%</strong><span>Oracle optimizer cost reduction</span></div><div><strong>92%</strong><span>Test accuracy on ML platform</span></div><div><strong>3+</strong><span>Years building software</span></div></div></div>
       <div className="timeline"><div className="timeline-item active"><span>08/2026 — PRESENT</span><div><h3>Oracle <small>Junior Member of Technical Staff</small></h3><p>Building business-critical CRM features for the NetSuite platform with enterprise Java practices.</p></div></div><div className="timeline-item"><span>01/2026 — 07/2026</span><div><h3>Oracle <small>Software Engineering Intern · PFE</small></h3><p>Optimized financial algorithms and PL/SQL execution plans while expanding JUnit and Mockito regression coverage.</p></div></div><div className="timeline-item"><span>07/2025 — 08/2025</span><div><h3>Colas Digital Solutions <small>Software Developer Intern</small></h3><p>Shipped payroll services, Angular dashboards, ELK observability, and Kafka/Spark Streaming pipelines.</p></div></div></div>
     </Section>
 
     <Section className="skills-section">
-      <div className="section-heading"><span className="section-number">02 / 04</span><div><p className="eyebrow">THE TOOLKIT</p><h2>Fluent across<br /><em>the stack.</em></h2></div></div>
+      <div className="section-heading"><span className="section-number">02 / 05</span><div><p className="eyebrow">THE TOOLKIT</p><h2>Fluent across<br /><em>the stack.</em></h2></div></div>
       <div className="skills-layout"><div className="skill-cloud"><Pill>Java</Pill><Pill>Spring Boot</Pill><Pill>Angular</Pill><Pill>React</Pill><Pill>SQL / PL/SQL</Pill><Pill>Apache Kafka</Pill><Pill>Apache Spark</Pill><Pill>Scala</Pill><Pill>Docker</Pill><Pill>Kubernetes</Pill><Pill>JUnit / Mockito</Pill><Pill>ELK Stack</Pill></div><div className="skill-columns"><div><span>BACKEND</span><p>REST APIs<br />JPA / Hibernate<br />JWT · Node.js</p></div><div><span>DATA & SYSTEMS</span><p>Oracle · PostgreSQL<br />MongoDB · MySQL<br />Event-driven architecture</p></div><div><span>DELIVERY</span><p>GitLab CI/CD<br />Azure · Linux<br />Agile / Scrum</p></div></div></div>
     </Section>
 
     <Section className="projects-section">
-      <div className="section-heading"><span className="section-number">03 / 04</span><div><p className="eyebrow">SELECTED WORK</p><h2>Ideas made<br /><em>tangible.</em></h2></div></div><ProjectShowcase />
+      <div className="section-heading"><span className="section-number">03 / 05</span><div><p className="eyebrow">SELECTED WORK</p><h2>Ideas made<br /><em>tangible.</em></h2></div></div><ProjectShowcase />
     </Section>
 
     <Section className="contact-section">
-      <div className="section-heading"><span className="section-number">04 / 04</span><div><p className="eyebrow">LET&apos;S CONNECT</p><h2>Have a system<br /><em>to build?</em></h2></div></div><ContactForm /><footer><span>SAAD AFIFI / 2026</span><span>JAVA · DATA · PRODUCT</span><a href="mailto:afifisaad8@gmail.com">afifisaad8@gmail.com ↗</a></footer>
+      <div className="section-heading"><span className="section-number">04 / 05</span><div><p className="eyebrow">LET&apos;S CONNECT</p><h2>Have a system<br /><em>to build?</em></h2></div></div><ContactForm /><footer><span>SAAD AFIFI / 2026</span><span>JAVA · DATA · PRODUCT</span><a href="mailto:afifisaad8@gmail.com">afifisaad8@gmail.com ↗</a></footer>
     </Section>
   </main>
 );
